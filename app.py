@@ -72,6 +72,27 @@ if "stage" not in st.session_state:
 st.set_page_config(page_title="SpeedyType Test", page_icon="⌨️", layout="centered")
 st.title("⌨️ Ultimate Typing Speed Test")
 
+# ANTI-CHEAT SECURITY: Disables highlight selection, text copying, and right-click menus app-wide
+st.markdown(
+    """
+    <style>
+    body, html, [data-testid="stMarkdownContainer"], p, h1, h2, h3, h4, code {
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none;    /* Firefox */
+        -ms-user-select: none;     /* IE10+ */
+        user-select: none;         /* Standard */
+    }
+    input, textarea {
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+        user-select: text !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 def reset_test():
     st.session_state.stage = "LOBBY"
     st.session_state.s1_count = 0
@@ -85,7 +106,7 @@ def reset_test():
 # 3. GAME RUNNER
 # ---------------------------------------------------------
 
-# --- STAGE: LOBBY (With New Instructions Section) ---
+# --- STAGE: LOBBY ---
 if st.session_state.stage == "LOBBY":
     st.markdown("""
     Welcome! Test your typing efficiency and accuracy across two challenging stages.
@@ -95,7 +116,6 @@ if st.session_state.stage == "LOBBY":
     * **Stage 2:** You will be given a **short paragraph** to type out completely.
     """)
     
-    # Styled instruction card for the input behavior
     st.info("""
     💡 **Important Instruction for Players:** To ensure your timer tracks your speed accurately, **please click or tap inside the text input field ("Your input:") at the start of each new round** to activate your cursor and keyboard before you begin typing.
     """)
